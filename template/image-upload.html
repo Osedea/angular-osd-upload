@@ -1,0 +1,25 @@
+<div>
+    <label class="control-label">Picture <small>(Optional)</small></label>
+
+    <div class="row">
+        <div class="col-sm-2" ng-show="model.image_path">
+            <img ng-src="{{ model.image_path }}" width="100%" height="auto"/>
+        </div>
+        <div class="col-sm-10">
+            <label class="btn btn-base margin-bottom">
+                Select a file
+                <input type="file" name="imgPath" ng-model="model.image_path" ng-file-select="onFileSelect($files)" style="display: none"/>
+            </label>
+            <label class="padding-left" ng-show="fileProgress > 0">
+                <i class="fa fa-refresh fa-spin"></i>
+            </label>
+            <p class="hidden-xs">OR</p>
+            <div class="dropzone padding hidden-xs" ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="hover">
+                Drag and drop an image here
+            </div>
+        </div>
+    </div>
+    <div class="margin-top text-danger" ng-show="maxSizeExceeded">
+        This photo is too large, the maximum is 1MB.
+    </div>
+</div>
