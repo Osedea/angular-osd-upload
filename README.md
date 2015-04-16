@@ -1,6 +1,6 @@
 # angular-osd-upload
 
-This module provides an easy way to create and decorate angular $resource services from a config file. This module was created with two goals: consistent API services and avoiding boilerplate.
+This module provides a service and directive for file uploads. It allows us to configure the upload path, supported file types, and max file size.
 
 ### Version
 0.1.0
@@ -31,7 +31,7 @@ Include a script tag (or add it to whatever you use to compile your js):
 
 ### Configuring the Service
 
-All of your resources can be generated from a single configuration file. This is done through the `UploadConfigProvider`. Here's an example configuration:
+The upload service can be configured using the `UploadConfigProvider`. Here's an example configuration:
 
 ```
 (function() {
