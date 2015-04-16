@@ -120,7 +120,7 @@
 
             /* Build data to be posted to upload route. */
             var params = {
-                url: UploadConfig.baseUploadUrl,
+                url: UploadConfig.uploadUrl,
                 file: $file,
                 data: data,
                 fileName: 'file',

@@ -40,7 +40,8 @@ All of your resources can be generated from a single configuration file. This is
     function resourceConfig(UploadConfigProvider) {
         UploadConfigProvider
             .config({
-              //  ...
+                uploadUrl: API.base + '/upload',
+                maxSize: 1000000
             });
 
     }
@@ -51,7 +52,7 @@ All of your resources can be generated from a single configuration file. This is
 
 ### How To Use It
 
-Here's an example of how to use a generated resource in a controller:
+Here's an example of how to use the upload service in a controller:
 
 ```
 
