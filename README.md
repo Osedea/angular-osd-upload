@@ -29,7 +29,7 @@ Include a script tag (or add it to whatever you use to compile your js):
 <script src="path/to/bower_components/angular-osd-upload/angular-osd-upload.min.js"></script>
 ```
 
-### Configuring Resources
+### Configuring the Service
 
 All of your resources can be generated from a single configuration file. This is done through the `UploadConfigProvider`. Here's an example configuration:
 

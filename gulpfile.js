@@ -8,11 +8,10 @@ var gulp = require('gulp'),
 
 var paths = {
     js: [
-        'bower_components/ng-file-upload/angular-file-upload-html5-shim.min.js',
-        'bower_components/ng-file-upload/angular-file-upload.min.js',
         'src/app.js',
+        'src/config.js',
+        'src/image-upload.js',
         'src/angular-osd-upload.js',
-        'src/decorators/**/*.js',
     ],
     test: [
         'bower_components/angular/angular.js',
