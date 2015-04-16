@@ -9,7 +9,7 @@
         var self = this;
 
         var config = {
-            baseUploadUrl: '/api/uploads',
+            uploadUrl: '/api/v1/uploads',
             maxSize: 100000000,
             supportedFileTypes: ['png', 'pdf', 'jpeg', 'jpg', 'mp4'],
         };
