@@ -38,6 +38,7 @@ The upload service can be configured using the `UploadConfigProvider`. Here's an
 
     // @ngInject
     function resourceConfig(UploadConfigProvider) {
+
         UploadConfigProvider
             .config({
                 uploadUrl: API.base + '/upload',
@@ -55,8 +56,36 @@ The upload service can be configured using the `UploadConfigProvider`. Here's an
 Here's an example of how to use the upload service in a controller:
 
 ```
+(function() {
 
+    // @ngInject
+    function ExampleCtrl(Upload) {
+
+        Upload.post($files[0])
+            .progress(function(event) {
+                vm.progress = parseInt(100.0 * event.loaded / event.total);
+            })
+            .success(function(response) {
+                vm.upload = response;
+                vm.progress = 0;
+            })
+            .error(function(error) {
+                vm.progress = 0;
+            });
+    }
+
+    angular
+        .module('app')
+        .controller('ExampleCtrl', ExampleCtrl);
+});
 ```
+
+### Events
+The following events can be listened for during upload:
+
+`$rootScope.$broadcast('osdUploadSizeExceeded', file);`: Fired when an attempt to upload a file with size greater than that specified in `UploadConfig.maxSize`.
+
+`$rootScope.$broadcast('osdUploadUnsupportedType', file);`: Fired when an attempt to upload a file of type that doesn't match any listed in `UploadConfig.supportedFileTypes`.
 
 
 #### License
