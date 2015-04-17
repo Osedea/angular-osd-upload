@@ -5,16 +5,14 @@
 
         $scope.onFileSelect = function($files) {
             Upload.post($files[0], data)
-                .progress(function(event) {
-                    $scope.progress = parseInt(100.0 * event.loaded / event.total);
-                })
-                .success(function(response) {
+                .then(function(response) {
                     $rootScope.$emit('osdUploadSuccess', response);
                     $scope.progress = 0;
-                })
-                .error(function(error) {
+                }, function(error) {
                     $rootScope.$emit('osdUploadError', error);
                     $scope.progress = 0;
+                }, function(event) {
+                    $scope.progress = parseInt(100.0 * event.loaded / event.total);
                 });
         };
 

@@ -1,7 +1,7 @@
 (function () {
 
     // @ngInject
-    function Upload($rootScope, $upload, UploadConfig) {
+    function Upload($rootScope, $q, $upload, UploadConfig) {
         var self = this;
 
         /* Returns true if the file size is greater than max. */
@@ -41,7 +41,20 @@
             };
 
             /* Send ajax request and return a promise. */
-            return $upload.upload(params);
+            var defer = $q.defer();
+
+            $upload.upload(params)
+                .progress(function(event) {
+                    defer.notify(event);
+                })
+                .success(function(response) {
+                    defer.resolve(response);
+                })
+                .error(function(error) {
+                    defer.reject(error);
+                });
+
+            return defer.promise;
         };
 
         return self;
