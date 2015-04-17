@@ -62,15 +62,13 @@ Here's an example of how to use the upload service in a controller:
     function ExampleCtrl(Upload) {
 
         Upload.post($files[0])
-            .progress(function(event) {
-                vm.progress = parseInt(100.0 * event.loaded / event.total);
-            })
-            .success(function(response) {
+            .then(function(response) {
                 vm.upload = response;
                 vm.progress = 0;
-            })
-            .error(function(error) {
+            }, function(error) {
                 vm.progress = 0;
+            }, function(event) {
+                vm.progress = parseInt(100.0 * event.loaded / event.total);
             });
     }
 
