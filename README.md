@@ -3,7 +3,7 @@
 This module provides a service and directive for file uploads. It allows us to configure the upload path, supported file types, and max file size.
 
 ### Version
-0.1.0
+0.1.1
 
 ### Installation and Setup
 
