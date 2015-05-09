@@ -38,6 +38,16 @@
 })();
 
 (function() {
+    angular.module('osdUpload')
+        .constant('UPLOAD', {
+            ERROR: {
+                FILE_TYPE: 0,
+                SIZE: 1
+            }
+        });
+})();
+
+(function() {
 
     // @ngInject
     function ImageUploadCtrl($rootScope, $scope, Upload) {
@@ -85,7 +95,7 @@
 (function () {
 
     // @ngInject
-    function Upload($rootScope, $q, $upload, UploadConfig) {
+    function Upload($q, $upload, UploadConfig, UPLOAD) {
         var self = this;
 
         /* Returns true if the file size is greater than max. */
@@ -102,18 +112,28 @@
             return pattern.test($file.type);
         }
 
+        /* Send ajax request and return a promise. */
         self.post = function ($file, data) {
+            var defer = $q.defer();
 
-            /* Emit event if upload size was exceeded. */
+            /* Reject promise if upload size was exceeded. */
             if (sizeExceeded($file)) {
-                $rootScope.$broadcast('osdUploadSizeExceeded', $file);
-                return;
+                defer.reject({
+                    type: UPLOAD.ERROR.SIZE,
+                    message: 'File size exceeded.'
+                });
+
+                return defer.promise;
             }
 
-            /* Emit event if file type is not supported. */
+            /* Reject promise if file type is not supported. */
             if (!supportedType($file)) {
-                $rootScope.$broadcast('osdUploadUnsupportedType', $file);
-                return;
+                defer.reject({
+                    type: UPLOAD.ERROR.FILE_TYPE,
+                    message: 'File type not supported.'
+                });
+
+                return defer.promise;
             }
 
             /* Build data to be posted to upload route. */
@@ -121,11 +141,8 @@
                 url: UploadConfig.uploadUrl,
                 file: $file,
                 data: data,
-                fileName: 'file',
+                fileName: 'file'
             };
-
-            /* Send ajax request and return a promise. */
-            var defer = $q.defer();
 
             $upload.upload(params)
                 .progress(function(event) {
