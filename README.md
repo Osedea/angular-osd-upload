@@ -66,7 +66,7 @@ Here's an example of how to use the upload service in a controller:
                 vm.upload = response;
                 vm.progress = 0;
             }, function(error) {
-                vm.progress = 0;
+                vm.error = error;
             }, function(event) {
                 vm.progress = parseInt(100.0 * event.loaded / event.total);
             });
@@ -78,12 +78,12 @@ Here's an example of how to use the upload service in a controller:
 });
 ```
 
-### Events
-The following events can be listened for during upload:
+### ERRORS CONSTANTS
+Upload constants can be injected into a service using the UPLOAD angular constant. The following error codes can be returned during upload:
 
-`$rootScope.$broadcast('osdUploadSizeExceeded', file);`: Fired when an attempt to upload a file with size greater than that specified in `UploadConfig.maxSize`.
+`UPLOAD.ERROR.FILE_TYPE`: Returned when an attempt to upload a file with size greater than that specified in `UploadConfig.maxSize`.
 
-`$rootScope.$broadcast('osdUploadUnsupportedType', file);`: Fired when an attempt to upload a file of type that doesn't match any listed in `UploadConfig.supportedFileTypes`.
+`UPLOAD.ERROR.SIZE`: Returned when an attempt to upload a file of type that doesn't match any listed in `UploadConfig.supportedFileTypes`.
 
 
 #### License
