@@ -16,7 +16,7 @@ var paths = {
     ],
     test: [
         'bower_components/angular/angular.js',
-        'bower_components/ng-file-upload/angular-file-upload.min.js',
+        'bower_components/ng-file-upload/ng-file-upload-all.min.js',
         'node_modules/angular-mocks/angular-mocks.js',
         'src/app.js',
         'src/config.js',

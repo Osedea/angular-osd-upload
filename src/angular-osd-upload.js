@@ -1,7 +1,7 @@
 (function () {
 
     // @ngInject
-    function Upload($q, $upload, UploadConfig, UPLOAD) {
+    function OsdUpload($q, Upload, UploadConfig, UPLOAD) {
         var self = this;
 
         /* Returns true if the file size is greater than max. */
@@ -50,7 +50,7 @@
                 fileName: 'file'
             };
 
-            $upload.upload(params)
+            Upload.upload(params)
                 .progress(function(event) {
                     defer.notify(event);
                 })
@@ -68,5 +68,5 @@
     }
 
     angular.module('osdUpload')
-        .factory('Upload', Upload);
+        .factory('OsdUpload', OsdUpload);
 })();

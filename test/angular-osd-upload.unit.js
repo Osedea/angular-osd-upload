@@ -8,7 +8,7 @@ describe('osdUpload', function() {
 
         beforeEach(inject(function(_UploadConfig_, _UPLOAD_) {
             UploadConfig = _UploadConfig_;
-            UPLOAD= _UPLOAD_;
+            UPLOAD = _UPLOAD_;
         }));
 
         it('should have access to UploadConfig', function() {
@@ -16,23 +16,23 @@ describe('osdUpload', function() {
         });
     });
 
-    describe('Upload', function() {
-        var Upload, $upload, $rootScope;
+    describe('OsdUpload', function() {
+        var OsdUpload, Upload, $rootScope;
 
-        beforeEach(inject(function (_$rootScope_, _$upload_, _Upload_) {
+        beforeEach(inject(function (_$rootScope_, _Upload_, _OsdUpload_) {
             $rootScope = _$rootScope_;
             $scope = $rootScope.$new();
-            $upload = _$upload_;
             Upload = _Upload_;
+            OsdUpload = _OsdUpload_;
         }));
 
         beforeEach(function() {
             spyOn($rootScope, '$broadcast').and.callThrough();
-            spyOn($upload, 'upload').and.callThrough();
+            spyOn(Upload, 'upload').and.callThrough();
         });
 
-        it('should have access to Upload service', function() {
-            expect(Upload).not.toBe(null);
+        it('should have access to OsdUpload service', function() {
+            expect(OsdUpload).not.toBe(null);
         });
 
         describe('posting an unsupported file type', function() {
@@ -42,13 +42,13 @@ describe('osdUpload', function() {
             };
 
             it('should emit an event and return early if the file type is not in the list of supported types', function() {
-                Upload.post(file)
+                OsdUpload.post(file)
                     .catch(function (error) {
                         expect(error.type).toBe(UPLOAD.ERROR.FILE_TYPE);
                     });
 
                 $scope.$apply();
-                expect($upload.upload).not.toHaveBeenCalled();
+                expect(Upload.upload).not.toHaveBeenCalled();
             });
         });
 
@@ -59,13 +59,13 @@ describe('osdUpload', function() {
             };
 
             it('should should emit and event and return early if the file size is exceeded', function() {
-                Upload.post(file)
+                OsdUpload.post(file)
                     .catch(function (error) {
                         expect(error.type).toBe(UPLOAD.ERROR.SIZE);
                     });
 
                 $scope.$apply();
-                expect($upload.upload).not.toHaveBeenCalled();
+                expect(Upload.upload).not.toHaveBeenCalled();
             });
         });
 
@@ -75,10 +75,10 @@ describe('osdUpload', function() {
                 type: 'jpeg'
             };
 
-            it('should call $upload.upload', function() {
-                Upload.post(file);
+            it('should call Upload.upload', function() {
+                OsdUpload.post(file);
 
-                expect($upload.upload).toHaveBeenCalled();
+                expect(Upload.upload).toHaveBeenCalled();
             });
         });
     });
