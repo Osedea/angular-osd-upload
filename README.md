@@ -3,7 +3,13 @@
 This module provides a service and directive for file uploads. It allows us to configure the upload path, supported file types, and max file size.
 
 ### Version
-0.1.1
+0.2.0
+
+### Dependencies
+
+The following dependencies must be added to your project:
+
+ - [ng-file-upload](https://github.com/danialfarid/ng-file-upload)
 
 ### Installation and Setup
 
