@@ -72,12 +72,12 @@ Here's an example of how to use the upload service in a controller:
             value2: 'value2',
         };
 
-        var supportedUploadTypes: [
+        var supportedFileTypes: [
             'image/jpeg',
             'application/pdf',
         ];
 
-        OsdUpload.post($files[0])
+        OsdUpload.post($files[0], extraPostData, supportedFileTypes)
             .then(function(response) {
                 vm.upload = response;
                 vm.progress = 0;
