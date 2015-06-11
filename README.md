@@ -67,6 +67,16 @@ Here's an example of how to use the upload service in a controller:
     // @ngInject
     function ExampleCtrl(OsdUpload) {
 
+        var extraPostData = {
+            value1: 'value1',
+            value2: 'value2',
+        };
+
+        var supportedUploadTypes: [
+            'image/jpeg',
+            'application/pdf',
+        ];
+
         OsdUpload.post($files[0])
             .then(function(response) {
                 vm.upload = response;

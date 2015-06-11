@@ -41,8 +41,25 @@ describe('osdUpload', function() {
                 type: 'unsupportedType'
             };
 
-            it('should emit an event and return early if the file type is not in the list of supported types', function() {
+            it('should reject the deffered error and return early if the file type is not in the list of supported types', function() {
                 OsdUpload.post(file)
+                    .catch(function (error) {
+                        expect(error.type).toBe(UPLOAD.ERROR.FILE_TYPE);
+                    });
+
+                $scope.$apply();
+                expect(Upload.upload).not.toHaveBeenCalled();
+            });
+        });
+
+        describe('posting an unsupported file type when specifying the wanted file type', function() {
+            var file = {
+                size: 10,
+                type: 'unsupportedType'
+            };
+
+            it('should reject the deffered error and return early if the file type is not in the list of supported types', function() {
+                OsdUpload.post(file, null, ['pdf'])
                     .catch(function (error) {
                         expect(error.type).toBe(UPLOAD.ERROR.FILE_TYPE);
                     });
@@ -77,6 +94,19 @@ describe('osdUpload', function() {
 
             it('should call Upload.upload', function() {
                 OsdUpload.post(file);
+
+                expect(Upload.upload).toHaveBeenCalled();
+            });
+        });
+
+        describe('posting a valid file when specifying the file types allowed', function() {
+            var file = {
+                size: 100,
+                type: 'jpeg'
+            };
+
+            it('should call Upload.upload', function() {
+                OsdUpload.post(file, null, ['jpeg']);
 
                 expect(Upload.upload).toHaveBeenCalled();
             });
