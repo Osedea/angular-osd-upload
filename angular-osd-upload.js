@@ -1,6 +1,6 @@
 (function() {
     var osdResource = angular.module('osdUpload', [
-        'angularFileUpload'
+        'ngFileUpload'
     ]);
 })();
 
@@ -95,7 +95,7 @@
 (function () {
 
     // @ngInject
-    function Upload($q, $upload, UploadConfig, UPLOAD) {
+    function OsdUpload($q, Upload, UploadConfig, UPLOAD) {
         var self = this;
 
         /* Returns true if the file size is greater than max. */
@@ -104,8 +104,8 @@
         }
 
         /* Returns true if the file type is in the list of supported types. */
-        function supportedType($file) {
-            var fileTypeRegex = UploadConfig.supportedFileTypes.join('|');
+        function supportedType($file, supportedTypes) {
+            var fileTypeRegex = supportedTypes ? supportedTypes.join('|') : UploadConfig.supportedFileTypes.join('|');
 
             var pattern = new RegExp(fileTypeRegex, "g");
 
@@ -113,7 +113,7 @@
         }
 
         /* Send ajax request and return a promise. */
-        self.post = function ($file, data) {
+        self.post = function ($file, data, supportedTypes) {
             var defer = $q.defer();
 
             /* Reject promise if upload size was exceeded. */
@@ -127,7 +127,7 @@
             }
 
             /* Reject promise if file type is not supported. */
-            if (!supportedType($file)) {
+            if (!supportedType($file, supportedTypes)) {
                 defer.reject({
                     type: UPLOAD.ERROR.FILE_TYPE,
                     message: 'File type not supported.'
@@ -144,14 +144,14 @@
                 fileName: 'file'
             };
 
-            $upload.upload(params)
-                .progress(function(event) {
+            Upload.upload(params)
+                .progress(function (event) {
                     defer.notify(event);
                 })
-                .success(function(response) {
+                .success(function (response) {
                     defer.resolve(response);
                 })
-                .error(function(error) {
+                .error(function (error) {
                     defer.reject(error);
                 });
 
@@ -162,5 +162,5 @@
     }
 
     angular.module('osdUpload')
-        .factory('Upload', Upload);
+        .factory('OsdUpload', OsdUpload);
 })();
