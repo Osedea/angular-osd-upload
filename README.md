@@ -65,9 +65,9 @@ Here's an example of how to use the upload service in a controller:
 (function() {
 
     // @ngInject
-    function ExampleCtrl(Upload) {
+    function ExampleCtrl(OsdUpload) {
 
-        Upload.post($files[0])
+        OsdUpload.post($files[0])
             .then(function(response) {
                 vm.upload = response;
                 vm.progress = 0;
@@ -85,7 +85,7 @@ Here's an example of how to use the upload service in a controller:
 ```
 
 ### ERRORS CONSTANTS
-Upload constants can be injected into a service using the UPLOAD angular constant. The following error codes can be returned during upload:
+OsdUpload constants can be injected into a service using the UPLOAD angular constant. The following error codes can be returned during upload:
 
 `UPLOAD.ERROR.FILE_TYPE`: Returned when an attempt to upload a file with size greater than that specified in `UploadConfig.maxSize`.
 
